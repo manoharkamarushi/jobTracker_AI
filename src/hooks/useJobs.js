@@ -6,6 +6,10 @@ import {
   deleteJob as dbDeleteJob,
 } from '../db/indexedDB';
 
+// Module-level flag prevents React 18 StrictMode double-effect race where
+// both concurrent init() calls read an empty DB and both seed, creating duplicates.
+let seedLock = false;
+
 const SEED = [
   {
     companyName: 'Google',
@@ -58,7 +62,8 @@ export function useJobs() {
   useEffect(() => {
     async function init() {
       let data = await getAllJobs();
-      if (data.length === 0) {
+      if (data.length === 0 && !seedLock) {
+        seedLock = true;
         await Promise.all(SEED.map((j) => dbAddJob(j)));
         data = await getAllJobs();
       }
