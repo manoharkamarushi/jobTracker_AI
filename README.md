@@ -4,6 +4,19 @@ A fully client-side job application tracker built with React + Vite. No backend,
 
 ---
 
+## Screenshots
+
+**Kanban Board**
+![Kanban Board](docs/screenshots/kanban-board.png)
+
+**Add Job Modal**
+![Add Job Modal](docs/screenshots/add-job-modal.png)
+
+**Offers Table**
+![Offers Table](docs/screenshots/offers-table.png)
+
+---
+
 ## Features
 
 - **Kanban Board** — drag cards across 5 columns: Saved → Applied → Follow-Up → Interview → Offer/Rejected
