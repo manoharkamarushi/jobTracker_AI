@@ -55,12 +55,14 @@ export default function JobFormModal({ isOpen, onClose, onSubmit, initialData })
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (tagInput.trim()) commitTag();
-    // use functional update to get latest tags after commitTag
-    setForm((latest) => {
-      onSubmit(latest);
-      return latest;
-    });
+    const finalForm = { ...form };
+    const pendingTag = tagInput.trim().replace(/,+$/, '');
+    if (pendingTag && !form.tags.includes(pendingTag)) {
+      finalForm.tags = [...form.tags, pendingTag];
+    }
+    setTagInput('');
+    setForm(finalForm);
+    onSubmit(finalForm);
   }
 
   return (
